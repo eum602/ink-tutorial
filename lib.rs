@@ -31,8 +31,9 @@ mod incrementer {
         }
 
         #[ink(message)]
+        // ACTION: Update this function to return an i32.
         pub fn get(&self) {
-            // Contract Message
+            // ACTION: Return the `value`.
         }
     }
 
@@ -43,7 +44,8 @@ mod incrementer {
 
         #[ink::test]
         fn default_works() {
-            Incrementer::default();
+            let contract = Incrementer::default();
+            assert_eq!(contract.get(), 0);
         }
     }
 }
