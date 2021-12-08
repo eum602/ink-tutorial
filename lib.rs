@@ -32,8 +32,9 @@ mod incrementer {
 
         #[ink(message)]
         // ACTION: Update this function to return an i32.
-        pub fn get(&self) {
+        pub fn get(&self) -> i32 {
             // ACTION: Return the `value`.
+            self.value
         }
     }
 
