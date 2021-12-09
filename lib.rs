@@ -36,6 +36,12 @@ mod incrementer {
             // ACTION: Return the `value`.
             self.value
         }
+
+        #[ink(message)]
+        pub fn inc(&mut self, by: i32) {
+            // ACTION: Simply increment `value` by `by`
+            
+        }
     }
 
     #[cfg(test)]
@@ -44,9 +50,13 @@ mod incrementer {
         use ink_lang as ink;
 
         #[ink::test]
-        fn default_works() {
-            let contract = Incrementer::default();
-            assert_eq!(contract.get(), 0);
+        fn it_works() {
+            let mut contract = Incrementer::new(42);
+            assert_eq!(contract.get(), 42);
+            contract.inc(5);
+            assert_eq!(contract.get(), 47);
+            contract.inc(-50);
+            assert_eq!(contract.get(), -3);
         }
     }
 }
