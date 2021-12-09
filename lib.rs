@@ -40,7 +40,7 @@ mod incrementer {
         #[ink(message)]
         pub fn inc(&mut self, by: i32) {
             // ACTION: Simply increment `value` by `by`
-            
+            self.value += by;
         }
     }
 
