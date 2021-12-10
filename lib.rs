@@ -9,6 +9,7 @@ mod incrementer {
     pub struct Incrementer {
         value: i32,
         // ACTION: Add a `HashMap` from `AccountId` to `i32` named `my_value`
+        my_value: ink_storage::collections::HashMap<AccountId, i32>,
     }
 
     impl Incrementer {
@@ -17,6 +18,8 @@ mod incrementer {
             Self {
 				value: init_value,
 				// ACTION: Set initial `my_value`
+                my_value: ink_storage::collections::HashMap::new(),
+                
             }
         }
 
@@ -25,6 +28,7 @@ mod incrementer {
             Self {
                 value: 0,
 				// ACTION: Set initial `my_value`
+                my_value: Default::default(),
             }
         }
 
@@ -41,11 +45,13 @@ mod incrementer {
         #[ink(message)]
         pub fn get_mine(&self) -> i32 {
             // ACTION: Get `my_value` using `my_value_or_zero` on `&self.env().caller()`
+            self.my_value_or_zero(&self.env().caller())
             // ACTION: Return `my_value`
         }
 
         fn my_value_or_zero(&self, of: &AccountId) -> i32 {
             // ACTION: `get` and return the value of `of` and `unwrap_or` return 0
+            *self.my_value.get(of).unwrap_or(&0)
         }
     }
 
