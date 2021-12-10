@@ -45,8 +45,11 @@ mod incrementer {
         #[ink(message)]
         pub fn inc_mine(&mut self, by: i32) {
             // ACTION: Get the `caller` of this function.
+            let caller = self.env().caller();
             // ACTION: Get `my_value` that belongs to `caller` by using `my_value_or_zero`.
+            let value = self.my_value_or_zero(&caller);
             // ACTION: Insert the incremented `value` back into the mapping.
+            self.my_value.insert(caller, value + by);
         }
 
         fn my_value_or_zero(&self, of: &AccountId) -> i32 {
